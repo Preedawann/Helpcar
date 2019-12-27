@@ -1,0 +1,237 @@
+<?php 
+ include_once 'DbConnect.php';
+
+ if(isset($_POST['submit'])){
+	 $Name=$_POST['Name'];
+	 $Email=$_POST['Email'];
+	 $Subject=$_POST['Subject'];
+	 $Message=$_POST['Message'];
+
+ 
+	 $query = "INSERT INTO user_comment(Name,Email,Subject,Message)
+	 VALUES('" . $Name . "','" . $Email . "','".$Subject."','".$Message . "')";
+
+
+if (mysqli_query($conn, $query)) {
+   $msg_success = "Success! 
+   <a href='index.php'>Click here to home</a>";
+} else {
+   $msg_error = "Error in registration, please try again!";
+}
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HelpCar</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="js/bar.js"></script>
+<style type="text/css" >
+    body,h2,h3,h4,h5,h6 {
+		font-family: "Raleway", sans-serif
+		}
+		h1 {
+		font-family: "Allerta Stencil", Sans-serif;
+		}
+
+    /* show msg on hover  */
+    .tooltip {
+  position: relative;
+  display: inline-block;
+
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 30%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+/* end hover */
+</style>
+</head>
+<body class="w3-light-grey">
+
+<!-- Icon Bar (Sidebar) -->
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-dark-grey w3-animate-right w3-top w3-text-white w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
+  <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">X</a> 
+  <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16" style="font-size:75%">HOME</a> 
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16" style="font-size:75%">ABOUT</a> 
+  <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-bar-item w3-button w3-center w3-padding-16" style="font-size:75%">  
+    SERVICE <i class="fa fa-caret-down"></i>
+  </a>
+      <div id="demoAcc" class="w3-hide">
+      
+      <a href="findG.php" class="w3-bar-item w3-button w3-center w3-padding-12" style="font-size:75%">the Garage</a>
+    </div>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16" style="font-size:75%">CONTACT</a> 
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-white w3-large w3-padding-12">
+  <span class="w3-left w3-padding"><img src="image/logo.png" style="width:13%"></span>
+  <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+      
+<br/>
+
+  <!-- Header -->
+  <div class="w3-container w3-center w3-padding-48 w3-white" id="home" >
+    <h1 class="w3-xxxlarge"><img src="image/logo.png" style="width:25%"></h1>
+    <h6>Help to find <span class="w3-tag">the garage </span> in Hatyai.</h6><br/>
+    <!-- Image header -->
+    <img class="w3-image" src="image/head.png" alt="car_service" width="700" height="2000" >
+    <br/>
+  </div>
+
+  <!-- About Section -->
+  <div class="w3-row-padding w3-padding-large" id="about" >
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">ABOUT</span>
+    </div>
+
+    <div class="w3-margin-bottom">
+      <div class="w3-card-4 w3-row">
+        <br/><br/>
+        <div class="w3-third w3-center tooltip">
+        <p><img src="image/question-mark.png" alt="what" width="25%" ></p>
+        <p>What's the HelpCar ?</p>
+        <span class="tooltiptext">website ที่จะนำรวบรวมร้านซ่อมรถที่อยู่ในหาดใหญ่ เพื่อช่วยให้ผู้เข้าใช้งานเข้าถึงร้านซ่อมรถได้ง่ายขึ้น</span>
+        </div>
+
+        <div class="w3-third w3-center">
+          <a href="#team"><p><img src="image/group.png" alt="team" width="25%" ></p>
+          <p>Our Team</p></a>
+          </div>
+
+        <div class="w3-third w3-center w3-margin-bottom">
+          <a href="#contact"><p><img src="image/contact.png" alt="contact" width="25%" class="w3-center"></p>
+          <p>Contact Us</p></a>
+        </div>
+        <br/>
+      </div>
+      
+    </div>
+  </div>
+    
+
+  <!-- Grid -->
+  <div class="w3-row-padding" id="team">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Our Team</span>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-4">
+        <div class="w3-container">
+          <h3>Miew</h3>
+          <p class="w3-opacity">Preedawan Kaewmanee</p>
+          <p><i class="fa fa-facebook-official w3-hover-opacity"><a href="https://www.facebook.com/preedawann.k" alt="Preedawann" style="text-decoration: none;">: Preedawann</a></i></p>
+          <p><i class="fa fa-phone   w3-hover-opacity"><a href="tel:+66849996836" style="text-decoration: none;"> : 084-9996836</a></i></p>
+          <p><a href="mailto:preedawann.k@gmail.com" class="w3-button w3-light-grey w3-block">E-Mail</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-4">
+        <div class="w3-container">
+          <h3>Khem</h3>
+          <p class="w3-opacity">Supissara Hongcharoen</p>
+          <p><i class="fa fa-facebook-official w3-hover-opacity"><a href="https://www.facebook.com/tonkhemzxx"  style="text-decoration: none;">: Supissara Hongcharoen</a></i></p>
+          <p><i class="fa fa-phone   w3-hover-opacity"><a href="tel:+66849695047" style="text-decoration: none;"> : 084-9695047</a></i></p>
+          <p><a href="mailto:khemsupissara@gmail.com" class="w3-button w3-light-grey w3-block">E-Mail</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-4">
+        <div class="w3-container">
+        <h3>Boom</h3>
+          <p class="w3-opacity">Patavee thanompatinya</p>
+          <p><i class="fa fa-facebook-official w3-hover-opacity"><a href="https://www.facebook.com/saksit.thanompatinya"  style="text-decoration: none;">: Boom Patavee</a></i></p>
+          <p><i class="fa fa-phone   w3-hover-opacity"><a href="tel:+66827333228" style="text-decoration: none;"> : 082-7333228</a></i></p>
+          <p><a href="mailto:5910513066@psu.ac.th" class="w3-button w3-light-grey w3-block">E-Mail</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="w3-row-padding" id="contact">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Contact</span>
+    </div>
+
+
+    <div class="w3-margin w3-padding-large">
+    <p>Lets get in touch. Send me a message :</p>
+
+    <div class="w3-margin w3-padding-large"><form action="#" method="post">
+    <?php
+      $ipaddress = $_SERVER['REMOTE_ADDR']; //Get user IP
+      $sql="INSERT INTO  `user_comment`(`Ip`)"
+    ?>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Subject" required name="Subject"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="Message"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="submit" id="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </p>
+    </form></div></div>
+  </div>
+  <!-- End Contact Section -->
+
+
+    <!-- Footer -->
+ <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+  <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+</footer>
+  <!-- End footer -->
+
+<!-- END PAGE CONTENT -->
+</div>
+
+</body>
+</html>
